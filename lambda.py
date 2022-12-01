@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 def get_db():
     connectionUrl=os.getenv("MONGODB_URI")
-    client = MongoClient(connectionUrl,3000)
+    client = MongoClient(connectionUrl)
     # dbName=os.getenv("MONGODB_DB")
     dbName="myFirstDatabase"
     db = client[dbName]
@@ -25,5 +25,8 @@ if __name__ == '__main__':
     inventory = get_collection(db,"inventory")
     inventoryItem=get_collection(db,"inventoryItem")
     documents = get_all_documents(inventory)
-    for document in documents:
-        print(document)
+    print(documents)
+    # for document in documents:
+    #     print(document)
+    #     print('bop')
+    #     break
