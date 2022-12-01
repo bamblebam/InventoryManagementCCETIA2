@@ -22,13 +22,8 @@ def get_all_documents(collection):
 
 if __name__ == '__main__':
     db = get_db()
-    print(db)
-    # inventory = get_collection(db,"inventory")
-    # inventoryItem=get_collection(db,"inventoryItem")
-    # documents = get_all_documents(inventory)
-    collection=db['inventoryItem']
-    print('collection',collection)
-    documents=collection.find()
-    print('documents',documents)
+    inventory = get_collection(db,"inventory")
+    inventoryItem=get_collection(db,"inventoryItem")
+    documents = get_all_documents(inventory)
     for document in documents:
         print(document)
