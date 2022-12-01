@@ -49,11 +49,25 @@ public class InventoryController {
         InventoryModel inventoryModel = inventoryRepository.findById(InventoryId)
                 .orElseThrow(() -> new IllegalStateException("Inventory with id " + InventoryId + " does not exist"));
 
-        // List<String> items=inventoryModel.getInventoryItems();
-        // inventoryModel.addInventoryItem(InventoryItemId);
         inventoryModel.getInventoryItems().add(InventoryItemId);
-
         inventoryRepository.save(inventoryModel);
         return inventoryModel;
+    }
+
+    @PatchMapping("removeItem/{InventoryId}/{InventoryItemId}")
+    public InventoryModel removeItemFromInventory(@PathVariable String InventoryId,
+            @PathVariable String InventoryItemId) {
+        InventoryModel inventoryModel = inventoryRepository.findById(InventoryId)
+                .orElseThrow(() -> new IllegalStateException("Inventory with id " + InventoryId + " does not exist"));
+        inventoryModel.getInventoryItems().remove(InventoryItemId);
+        inventoryRepository.save(inventoryModel);
+        return inventoryModel;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteInventory(@PathVariable String id) {
+        inventoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Inventory with id " + id + " does not exist"));
+        inventoryRepository.deleteById(id);
     }
 }

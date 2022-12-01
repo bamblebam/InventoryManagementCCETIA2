@@ -42,4 +42,22 @@ public class InventoryItemController {
         inventoryItemRepository.save(inventoryItemModel);
         return inventoryItemModel;
     }
+
+    @PatchMapping("/updateQuantity/{id}")
+    public InventoryItemModel updateInventoryItemQuantity(@PathVariable String id,
+            @RequestBody Map<String, Integer> quantity) {
+        InventoryItemModel inventoryItemModel = inventoryItemRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("InventoryItem with id " + id + " does not exist"));
+
+        inventoryItemModel.setQuantity(quantity.get("quantity"));
+        inventoryItemRepository.save(inventoryItemModel);
+        return inventoryItemModel;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteInventoryItem(@PathVariable String id) {
+        inventoryItemRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("InventoryItem with id " + id + " does not exist"));
+        inventoryItemRepository.deleteById(id);
+    }
 }
