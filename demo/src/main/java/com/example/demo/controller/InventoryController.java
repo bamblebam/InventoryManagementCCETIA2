@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.InventoryItemModel;
 import com.example.demo.model.InventoryModel;
 import com.example.demo.repository.InventoryRepository;
 
@@ -39,6 +40,19 @@ public class InventoryController {
 
     @PostMapping("/create")
     public InventoryModel createInventory(@RequestBody InventoryModel inventoryModel) {
+        inventoryRepository.save(inventoryModel);
+        return inventoryModel;
+    }
+
+    @PatchMapping("/addItem/{InventoryId}/{InventoryItemId}")
+    public InventoryModel addItemToInventory(@PathVariable String InventoryId, @PathVariable String InventoryItemId) {
+        InventoryModel inventoryModel = inventoryRepository.findById(InventoryId)
+                .orElseThrow(() -> new IllegalStateException("Inventory with id " + InventoryId + " does not exist"));
+
+        // List<String> items=inventoryModel.getInventoryItems();
+        // inventoryModel.addInventoryItem(InventoryItemId);
+        inventoryModel.getInventoryItems().add(InventoryItemId);
+
         inventoryRepository.save(inventoryModel);
         return inventoryModel;
     }

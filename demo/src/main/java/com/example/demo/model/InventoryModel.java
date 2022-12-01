@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -31,8 +32,8 @@ public class InventoryModel {
     @CreatedDate
     private String createdDate;
 
-    // @Field
-    // private List<InventoryItem> inventoryItems;
+    @Field
+    private List<String> inventoryItems = new ArrayList<>();
 
     public InventoryModel(String name, String description, String email) {
         this.name = name;
@@ -45,5 +46,9 @@ public class InventoryModel {
         return "InventoryModel [description=" + description + ", email=" + email + ", id=" + id + ", name=" + name
                 + "]";
     }
+
+    // public void addInventoryItem(String inventoryItemId) {
+    // getInventoryItems().add(inventoryItemId);
+    // }
 
 }
